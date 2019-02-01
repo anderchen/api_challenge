@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  actor: one
+  repo: 
+  created_at: 2019-02-01 13:11:31
+
+two:
+  type: 
+  actor: two
+  repo: 
+  created_at: 2019-02-01 13:11:31
