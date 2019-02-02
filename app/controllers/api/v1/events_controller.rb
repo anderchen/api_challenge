@@ -1,4 +1,6 @@
 class Api::V1::EventsController < Api::V1::BaseController
+  before_action :set_actor, only: [:filtered]
+
   def index
     @events = Event.all
   end
@@ -19,7 +21,14 @@ class Api::V1::EventsController < Api::V1::BaseController
     head '200'
   end
 
+  def filtered
+    @actor_events = @actor.events
+  end
+
   private
+  def set_actor
+    @actor = Actor.find(params[:id])
+  end
 
   def event_params
     params.require(:event).permit(:type)

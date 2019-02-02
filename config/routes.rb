@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :events, only: [:index, :create]
       delete 'erase', to: 'events#erase'
+      get 'events/actors/:id', to: 'events#filtered'
     end
   end
 
