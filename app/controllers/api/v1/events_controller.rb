@@ -6,12 +6,9 @@ class Api::V1::EventsController < Api::V1::BaseController
   end
 
   def create
-    @actor = find_actor
-    @repo = find_repo
-
     @event = Event.new(event_params)
-    @event.actor = @actor
-    @event.repo = @repo
+    @event.actor = find_actor
+    @event.repo = find_repo
 
     if Event.exists?(@event.id)
       render_400
@@ -55,11 +52,10 @@ class Api::V1::EventsController < Api::V1::BaseController
 
   def render_error
     render json: { errors: @event.errors.full_messages },
-      status: :unprocessable_entity
+           status: :unprocessable_entity
   end
 
   def render_400
     render json: { error: 'Event already in db', status: 400 }, status: 400
   end
-
 end
