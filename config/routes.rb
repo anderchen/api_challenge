@@ -7,9 +7,13 @@ Rails.application.routes.draw do
     end
   end
 
+    # resources :events, only: [:index, :create], defaults: {format: :json}
+    # delete 'erase', to: 'events#erase', defaults: {format: :json}
+    # get 'evets/actors/:id', to: 'events#filtered', defaults: {format: :json}
+
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :actors, only: [:index]
+      resources :actors, only: [:index, :create]
     end
   end
 

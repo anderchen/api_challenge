@@ -5,8 +5,16 @@ class Api::V1::ActorsController < Api::V1::BaseController
     @actors = Actor.all
   end
 
+  def create
+  @actor = Actor.new(actor_params)
+    if @actor.save
+      render :index, status: :created
+    else
+      render_error
+    end
+  end
+
   def show
-    # @actor_events = @actor.events
   end
 
   private
@@ -14,4 +22,10 @@ class Api::V1::ActorsController < Api::V1::BaseController
   def set_actor
     @actor = Actor.find(params[:id])
   end
+
+  def actor_params
+    params.require(:actor).permit(:id, :login, :avatar_url)
+  end
+
+
 end
