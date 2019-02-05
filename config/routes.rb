@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :actors, only: [:index, :create]
+      put 'actors', to: 'actors#update'
+      get 'actors/streak', to: 'actors#streak'
     end
   end
 

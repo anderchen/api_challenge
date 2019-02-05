@@ -7,8 +7,8 @@ class Api::V1::EventsController < Api::V1::BaseController
 
   def create
     @event = Event.new(event_params)
-    @event.actor = find_actor
-    @event.repo = find_repo
+    @event.actor = Actor.find_or_create_by(actor_params)
+    @event.repo = Repo.find_or_create_by(repo_params)
 
     if Event.exists?(@event.id)
       render_400
@@ -35,19 +35,11 @@ class Api::V1::EventsController < Api::V1::BaseController
   end
 
   def actor_params
-    params.require(:event).permit(actor_attibutes: [:id, :login, :avatar_url])
+    params.require(:event).require(:actor).permit(:id, :login, :avatar_url)
   end
 
   def repo_params
-    params.require(:event).permit(repo_attibutes: [:id, :name, :url])
-  end
-
-  def find_actor
-    Actor.find_or_create_by(actor_params)
-  end
-
-  def find_repo
-    Repo.find_or_create_by(repo_params)
+    params.require(:event).require(:repo).permit(:id, :name, :url)
   end
 
   def render_error
@@ -58,4 +50,9 @@ class Api::V1::EventsController < Api::V1::BaseController
   def render_400
     render json: { error: 'Event already in db', status: 400 }, status: 400
   end
+
+  def set_actor
+    @actor = Actor.find(params[:id])
+  end
+
 end

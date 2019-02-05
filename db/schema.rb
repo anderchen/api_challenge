@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_01_151131) do
+ActiveRecord::Schema.define(version: 2019_02_03_224849) do
 
   create_table "actors", force: :cascade do |t|
     t.string "login"
     t.string "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "events_count", default: 0
   end
 
   create_table "events", force: :cascade do |t|
